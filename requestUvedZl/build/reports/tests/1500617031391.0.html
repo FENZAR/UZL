@@ -1,0 +1,200 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><style type="text/css">.uib-position-measure{display:block !important;visibility:hidden !important;position:absolute !important;top:-9999px !important;left:-9999px !important;}.uib-position-scrollbar-measure{position:absolute !important;top:-9999px !important;width:50px !important;height:50px !important;overflow:scroll !important;}.uib-position-body-scrollbar-measure{overflow:scroll !important;}</style><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+    <title>ВИО эмулятор 3</title>
+    <script>window.contextPath = '/vio-emulator';</script>
+    <link rel="stylesheet" href="/vio-emulator/assets/vendor/normalize-css/normalize.css" type="text/css" />
+    <link rel="stylesheet" href="/vio-emulator/assets/vendor/bootstrap/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/vio-emulator/assets/vendor/bootstrap/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="/vio-emulator/assets/vendor/angular/angular-csp.css" type="text/css" />
+    <link rel="stylesheet" href="/vio-emulator/assets/vendor/angular-bootstrap/ui-bootstrap-csp.css" type="text/css" />
+    <link rel="stylesheet" href="/vio-emulator/assets/stylesheets/sb-admin.css" type="text/css" />
+    <link rel="stylesheet" href="/vio-emulator/assets/stylesheets/main.css" type="text/css" />
+</head>
+<body ng-app="com.r-style.vio-emulator" class="ng-scope">
+<div id="wrapper">
+    <navigation class="ng-isolate-scope"><!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" ui-sref="index">
+            ВИО эмулятор 3
+        </a>
+    </div>
+    <!-- /.navbar-header -->
+
+    <!-- Top Menu Items -->
+    <ul class="nav navbar-right top-nav">
+        <li class="dropdown">
+            <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                Приложения на сервере
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="/uspn/">
+                        УСПН
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="/vio-emulator/">
+                        ВИО-эмулятор
+                    </a>
+                </li>
+                <li>
+                    <a href="/udsapi/">
+                        ЕХД-эмулятор
+                    </a>
+                </li>
+                <li>
+                    <a href="/spu-emulator/">
+                        СПУ-эмулятор
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav side-nav">
+            <li ui-sref-active="active">
+                <a ui-sref="notification.list" href="#/notification">
+                    Квитанции
+                </a>
+            </li>
+            <!-- end menu line -->
+
+            <li ui-sref-active="active">
+                <a ui-sref="send.npfDocument" href="#/send/npfDocument">
+                    Отправить документ НПФ
+                </a>
+            </li>
+            <!-- end menu line -->
+
+            <li ui-sref-active="active">
+                <a ui-sref="send.statement" href="#/send/statement">
+                    Отправить заявление/договор
+                </a>
+            </li>
+            <!-- end menu line -->
+
+            <li ui-sref-active="active" class="active">
+                <a ui-sref="send.requestUvedZl" href="#/send/requestUvedZl">
+                    Отправить запрос на уведомление ЗЛ
+                </a>
+            </li>
+            <!-- end menu line -->
+
+            <li ui-sref-active="active">
+                <a ui-sref="userFile.list" href="#/userFile">
+                    Файлы
+                </a>
+            </li>
+            <!-- end menu line -->
+
+            <li ui-sref-active="active">
+                <a ui-sref="setting" href="#/setting">
+                    Настройки
+                </a>
+            </li>
+            <!-- end menu line -->
+
+            <li ui-sref-active="active">
+                <!--<a ui-sref="documentation">-->
+                <a href="documentation.html">
+                    Справка
+                </a>
+            </li>
+            <!-- end menu line -->
+
+        </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+
+</nav></navigation>
+    <div class="container-fluid">
+        <!-- uiView: --><div id="page-wrapper" ui-view="" class="ng-scope"><!-- uiView: --><div ui-view="" class="ng-scope"><h1 class="ng-scope">Отправка запроса на уведомление ЗЛ</h1>
+
+<!-- ngRepeat: error in vm.errors -->
+
+<!-- ngRepeat: error in vm.info --><div class="alert alert-info ng-binding ng-scope" role="alert" ng-repeat="error in vm.info">
+    Сообщение отправлено в УСПН. Для повторной отправки нажмите кнопку "Сбросить"
+</div><!-- end ngRepeat: error in vm.info -->
+
+<div ng-show="messageParams.$submitted" class="ng-scope">
+    <div class="alert alert-danger ng-hide" role="alert" ng-show="messageParams.regNumber.$error.required">
+        <strong>
+            Введите регисрационны номер
+        </strong>
+    </div>
+</div>
+
+<div class="row ng-scope">
+    <div class="col-md-12">
+        <!--<form ng-submit="messageParams.$valid ? vm.send() : null"-->
+        <form ng-submit="vm.sendRequestUvedZl()" name="messageParams" ng-disabled="vm.processing" class="ng-dirty ng-valid-parse ng-valid ng-valid-required ng-submitted" disabled="disabled">
+            <div class="form-group">
+                <label for="regNumber">
+                    Регисрационный номер
+                </label>
+                <input id="regNumber" required="" type="text" class="form-control ng-not-empty ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" ng-disabled="vm.processing" ng-model="vm.request.regNumber" disabled="disabled" />
+            </div>
+            <!--/.form-group-->
+
+            <button class="btn btn-primary" ng-disabled="vm.processing" disabled="disabled">
+                Отправить
+            </button>
+            <button class="btn btn-default" type="button" ng-click="vm.reset(); form.$setPristine();">
+                Сбросить
+            </button>
+
+            <!--<h3 ng-if="messageParams.$submitted && messageParams.$valid && !vm.processing">-->
+                <!--Отправленное сообщение-->
+            <!--</h3>-->
+
+            <!--<textarea ng-if="messageParams.$submitted && messageParams.$valid && !vm.processing"-->
+                      <!--id="content"-->
+                      <!--class="form-control"-->
+                      <!--rows="5"-->
+                      <!--readonly-->
+                      <!--ng-model="vm.message.content">-->
+                    <!--</textarea>-->
+
+        </form>
+    </div>
+</div>
+</div></div>
+    </div>
+</div>
+<script src="/vio-emulator/assets/vendor/sizzle/sizzle.min.js"></script>
+<script src="/vio-emulator/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/vio-emulator/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/vio-emulator/assets/vendor/angular/angular.min.js"></script>
+<script src="/vio-emulator/assets/vendor/angular-ui-router/angular-ui-router.min.js"></script>
+<script src="/vio-emulator/assets/vendor/angular-file-upload/angular-file-upload.min.js"></script>
+<script src="/vio-emulator/assets/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="/vio-emulator/assets/vendor/angular-resource/angular-resource.min.js"></script>
+<script src="/vio-emulator/assets/vendor/angular-smart-table/smart-table.min.js"></script>
+<script src="/vio-emulator/assets/vendor/angular-bootstrap-contextmenu/contextMenu.js"></script>
+<script src="/vio-emulator/assets/javascripts/com.r-style.vio-emulator.js"></script>
+<script src="/vio-emulator/assets/javascripts/component/navigationComponent.js"></script>
+<script src="/vio-emulator/assets/javascripts/controller/notificationListController.js"></script>
+<script src="/vio-emulator/assets/javascripts/controller/notificationShowController.js"></script>
+<script src="/vio-emulator/assets/javascripts/controller/navigationController.js"></script>
+<script src="/vio-emulator/assets/javascripts/controller/userFileListController.js"></script>
+<script src="/vio-emulator/assets/javascripts/controller/userFileUploadController.js"></script>
+<script src="/vio-emulator/assets/javascripts/controller/processInvokeController.js"></script>
+<script src="/vio-emulator/assets/javascripts/controller/settingController.js"></script>
+<script src="/vio-emulator/assets/javascripts/domain/UserFile.js"></script>
+<script src="/vio-emulator/assets/javascripts/domain/Notification.js"></script>
+<script src="/vio-emulator/assets/javascripts/domain/DocumentType.js"></script>
+<script src="/vio-emulator/assets/javascripts/domain/Setting.js"></script>
+
+
+</body></html>
